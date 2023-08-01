@@ -9,6 +9,7 @@
 :root {
   --main-color: #2196f3;
   --main-color-alt: #1787e0;
+  --transparent-color: rgb(15 116 143 / 70%);
   --main-transition: 0.5s;
   --main-padding-top: 100px;
   --main-padding-bottom: 100px;
@@ -19,6 +20,7 @@ html {
 }
 body {
   font-family: "Open Sans", sans-serif;
+  width: 100vw;
 }
 ul {
   list-style: none;
@@ -30,9 +32,9 @@ ul {
   margin-right: auto;
 }
 /* Small */
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .container {
-    width: 750px;
+    width: min(750px, 100%);
   }
 }
 /* Medium */
@@ -51,7 +53,7 @@ ul {
 
 /* home styles start  */
 .home {
-  height: 500px;
+  min-height: 100vh;
   background: url(https://i.pinimg.com/originals/14/cd/4e/14cd4ee0b72a7d8b6b90608858f6269b.jpg)
     no-repeat;
   background-size: cover;
@@ -59,8 +61,11 @@ ul {
 .home-container {
   background-color: rgba(255, 255, 255, 0.1);
   width: 100%;
-  height: 500px;
+  height: 100vh;
 }
+
+/* header styles */
+
 .home header {
   height: 80px;
   padding: 15px 0;
@@ -107,27 +112,64 @@ nav ul a {
   padding: 21px 10px;
   transition: var(--main-transition);
 }
+nav ul li {
+  transition: 0.1s;
+}
 nav ul li:first-child a,
 nav ul li:not(:first-child):hover a {
   color: var(--main-color);
   border-bottom: 2px solid var(--main-color);
 }
-nav i {
-  padding: 10px;
-  color: aliceblue;
-  margin-left: 10px;
+.menu {
+  display: none;
+}
+/* Small */
+@media (max-width: 767px) {
+  nav ul {
+    display: none;
+  }
+  .menu {
+    display: inline-block;
+  }
+  .menu:hover nav ul {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Greater than 767px */
+@media (min-width: 768px) {
+  nav ul {
+    display: flex;
+  }
+  .menu {
+    display: none;
+  }
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+  margin-left: 20px;
   border-left: 1px solid aliceblue;
-  font-size: 20px;
   transition: var(--main-transition);
 }
-nav i:hover {
+header i {
+  color: aliceblue;
+  font-size: 20px;
+}
+header .search:hover {
   font-size: 22px;
-  transform: translate(-5px, -5px);
+  transform: translate(-5px, 5px);
   border-bottom: 1px solid aliceblue;
   border-left: 0px;
 }
-nav input[type="search"] {
+header input[type="search"] {
   position: absolute;
+  width: 60px;
   background-color: #9099ff;
   outline-offset: 0;
   overflow: hidden;
@@ -135,8 +177,9 @@ nav input[type="search"] {
   display: none;
   transition: var(--main-transition);
 }
-nav i:hover + input[type="search"] {
+header .search:hover input[type="search"] {
   display: block;
+  height: fit-content;
   padding: 5px;
   bottom: -28px;
   animation: search 0.6s linear 0.3s;
@@ -145,12 +188,82 @@ nav i:hover + input[type="search"] {
 @keyframes search {
   0% {
     padding: 0px;
-    bottom: -5px;
-    right: 5px;
+    bottom: -20px;
+    right: 0px;
+    width: 40px;
   }
   100% {
     padding: 5px;
-    bottom: -28px;
-    right: 5px;
+    bottom: -37px;
+    right: 0px;
+    width: 200px;
   }
+}
+
+/* the rest of home area styles */
+.home .side-bar {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--transparent-color);
+  color: white;
+}
+.home .side-text {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  padding: 50px;
+}
+/* Small */
+@media (max-width: 767px) {
+  .home .side-bar {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.side-text p {
+  padding: 10px;
+  font-weight: 300;
+}
+
+.next-icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 30px;
+  padding: 5px;
+  top: 50%;
+
+  z-index: 1;
+}
+.next-icon:first-of-type {
+  left: 0;
+  transform: scaleX(-1);
+}
+.next-icon:last-of-type {
+  right: 0;
+}
+.next-icon:hover {
+  color: white;
+}
+.circles {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  width: 80px;
+  bottom: 5px;
+  right: 50%;
+  transform: translateX(50%);
+  color: rgba(255, 255, 255, 0.6);
+}
+.circles i:nth-child(2),
+.circles i:hover {
+  color: var(--main-color-alt);
+  font-size: 20px;
 }

@@ -1,2 +1,3 @@
 # HTML-and-CSS-template-2
-an html and css template.
+html and css template 2 by kasper.
+fully responsive.
